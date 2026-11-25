@@ -1,0 +1,16 @@
+{
+  "name": "lol-moba-server",
+  "version": "1.0.0",
+  "description": "소환사의 협곡 3D 실시간 온라인 멀티플레이 게임 서버",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1"
+  }
+}
