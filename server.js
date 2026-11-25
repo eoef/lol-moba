@@ -45,6 +45,7 @@ function sanitizeRoomForClient(room) {
     code: room.code,
     hostId: room.hostId,
     started: room.started,
+    noTurrets: !!room.noTurrets,
     members: room.members
   };
 }
@@ -92,6 +93,7 @@ io.on('connection', (socket) => {
       code: cleanCode,
       hostId: userId,
       started: false,
+      noTurrets: false,
       members: {
         [userId]: { ...member, id: userId, team: 'blue', isBot: false }
       }
@@ -167,6 +169,33 @@ io.on('connection', (socket) => {
     io.to(code).emit('roomUpdate', sanitizeRoomForClient(room));
   });
 
+  // 4-1. 커스텀 방 규칙 변경 (포탑 제거 모드 등 - 방장 전용)
+  socket.on('updateRoomSettings', ({ code, userId, noTurrets }) => {
+    const room = rooms[code];
+    if (!room || room.hostId !== userId) return;
+    room.noTurrets = !!noTurrets;
+    io.to(code).emit('roomUpdate', sanitizeRoomForClient(room));
+    io.to(code).emit('systemNotice', {
+      message: room.noTurrets
+        ? '🔥 방장이 [포탑 제거 모드]를 활성화했습니다!'
+        : '🏰 방장이 [표준 포탑 모드]로 변경했습니다.'
+    });
+  });
+
+  // 4-2. AI 봇 및 플레이어 추방 (방장 전용)
+  socket.on('kickMember', ({ code, userId, targetId }) => {
+    const room = rooms[code];
+    if (!room || room.hostId !== userId || !targetId || targetId === userId) return;
+    const target = room.members[targetId];
+    if (!target) return;
+
+    const kickedName = target.name || '참가자';
+    delete room.members[targetId];
+    io.to(code).emit('kickedMember', { targetId, name: kickedName });
+    io.to(code).emit('roomUpdate', sanitizeRoomForClient(room));
+    io.to(code).emit('systemNotice', { message: `🚫 ${kickedName}님이 방장에 의해 추방되었습니다.` });
+  });
+
   // 5. 매치 시작 (방장 전용)
   socket.on('startMatch', ({ code, userId }) => {
     const room = rooms[code];
@@ -174,7 +203,7 @@ io.on('connection', (socket) => {
     room.started = true;
     const roster = Object.values(room.members);
     io.to(code).emit('roomUpdate', sanitizeRoomForClient(room));
-    io.to(code).emit('startMatch', { roster });
+    io.to(code).emit('startMatch', { roster, noTurrets: !!room.noTurrets });
   });
 
   // 6. 방 나가기
