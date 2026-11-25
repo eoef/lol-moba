@@ -185,6 +185,17 @@
               </div>
             </div>
 
+            <!-- 커스텀 방 전용 모드 설정 (포탑 제거 옵션) -->
+            <div class="flex items-center justify-between bg-[#040c18] border border-[#c8aa6e]/40 rounded-xl px-3 py-2">
+              <div>
+                <div class="text-xs font-black text-[#f0e6d2]">🏰 커스텀 전장 규칙</div>
+                <div id="noTurretsDescText" class="text-[10px] text-slate-400">표준 모드 (모든 방어 포탑 활성화)</div>
+              </div>
+              <button id="toggleNoTurretsBtn" type="button" class="hex-btn px-2.5 py-1.5 rounded-lg text-xs font-black text-amber-300">
+                포탑: ON
+              </button>
+            </div>
+
             <div class="grid grid-cols-2 gap-2">
               <div class="bg-sky-950/40 border border-sky-500/40 rounded-xl p-2">
                 <div class="flex items-center justify-between mb-1.5">
@@ -389,12 +400,12 @@
       <div class="hex-panel w-full max-w-3xl rounded-2xl p-5 max-h-[85vh] flex flex-col">
         <div class="flex items-center justify-between pb-3 border-b border-[#c8aa6e]/40">
           <div>
-            <h3 class="font-cinzel text-xl font-black text-[#f0e6d2]">⚒️ 마법공학 아이템 상점</h3>
-            <p class="text-xs text-slate-300">보유 골드: <span id="shopGoldText" class="text-amber-300 font-black">1000G</span> · <span class="text-rose-300 font-bold">고유 아이템 중복 구매 불가</span> · 액티브 <span class="text-[#0ac8b9] font-bold">1~3번 키</span></p>
+            <h3 class="font-cinzel text-lg font-black text-[#f0e6d2]">🏛️ 마법공학 아이템 상점</h3>
+            <p class="text-xs text-slate-400">보유 골드: <span id="shopGoldText" class="text-amber-300 font-black">1000G</span> · 동일 아이템 중복 구매 불가</p>
           </div>
-          <button id="closeShopBtn" type="button" class="hex-btn px-3 py-1.5 rounded-xl text-xs font-bold">닫기 (P / ESC)</button>
+          <button id="closeShopBtn" type="button" class="hex-btn px-3 py-1.5 rounded-xl text-xs font-bold">닫기 (ESC / P)</button>
         </div>
-        <div id="shopItemsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 overflow-y-auto my-3 pr-1"></div>
+        <div id="shopItemsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 mt-3 overflow-y-auto pr-1"></div>
       </div>
     </div>
 
@@ -596,6 +607,58 @@
           E: { name: '사슬 채찍', cd: 7.5, mp: 45, desc: '주변에 사슬을 휘둘러 마법 피해를 입히고 1.5초간 둔화시킵니다.' },
           R: { name: '영혼 감옥', cd: 28.0, mp: 85, desc: '주변에 5각형 영혼의 벽을 소환해 범위 내 모든 적에게 큰 마법 피해와 2초 둔화를 줍니다.' }
         }
+      },
+      leeSin: {
+        id: 'leeSin', name: '리 신', subtitle: '눈먼 수도승', role: '전사 / 암살자', diff: '★★★',
+        icon: '🐉', color: 0xd97706, accent: 0xfef08a,
+        desc: '아이오니아 고대 무술의 달인입니다. 음파 돌진과 방호 보호막, 폭풍 둔화, 적을 날려버리는 용의 분노 발차기로 전장을 지배합니다.',
+        stats: { hp: 645, mp: 300, ad: 71, ap: 0, ar: 35, mr: 32, moveSpeed: 354, attackRange: 170, attackSpeed: 0.85 },
+        skills: {
+          P: { name: '질풍격', desc: '스킬 사용 후 공격 속도와 기력 회복이 빨라집니다.' },
+          Q: { name: '음파 / 공명의 일격', cd: 5.5, mp: 35, desc: '음파를 날려 적중 대상에게 빠르게 돌진하며 큰 물리 피해를 입힙니다.' },
+          W: { name: '방호 / 강철의 의지', cd: 8.5, mp: 40, desc: '지정 방향으로 도약하며 자신과 주변 아군에게 보호막을 부여합니다.' },
+          E: { name: '폭풍 / 무력화', cd: 6.5, mp: 35, desc: '바닥을 내리쳐 주변 적에게 마법 피해와 1.6초 둔화를 부여합니다.' },
+          R: { name: '용의 분노', cd: 25.0, mp: 60, desc: '강력한 돌려차기로 전방 적들을 날려버리며 막대한 물리 피해와 1.2초 기절을 입힙니다.' }
+        }
+      },
+      darius: {
+        id: 'darius', name: '다리어스', subtitle: '녹서스의 실력자', role: '전사 / 돌격형', diff: '★☆☆',
+        icon: '🪓', color: 0x991b1b, accent: 0xfca5a5,
+        desc: '녹서스의 무자비한 사령관입니다. 학살 회전 도끼와 포획 끌어당김, 적을 처형하는 녹서스의 단두대로 한타를 휩씁니다.',
+        stats: { hp: 710, mp: 310, ad: 74, ap: 0, ar: 40, mr: 34, moveSpeed: 342, attackRange: 185, attackSpeed: 0.74 },
+        skills: {
+          P: { name: '과다출혈', desc: '강력한 물리 공격력과 체력 재생으로 근접전을 압도합니다.' },
+          Q: { name: '학살', cd: 6.0, mp: 35, desc: '거대 도끼를 크게 휘둘러 주변 적에게 물리 피해를 입히고 체력을 회복합니다.' },
+          W: { name: '마비의 일격', cd: 5.5, mp: 25, desc: '치명적인 도끼 강타로 큰 물리 피해와 1.5초 둔화를 입힙니다.' },
+          E: { name: '포획', cd: 9.0, mp: 40, desc: '도끼 갈고리로 전방 적들을 끌어당기며 1초간 기절시킵니다.' },
+          R: { name: '녹서스의 단두대', cd: 26.0, mp: 75, desc: '공중으로 도약해 거대 도끼로 내려찍어 막대한 방어 무시 고정 피해를 입힙니다.' }
+        }
+      },
+      vayne: {
+        id: 'vayne', name: '베인', subtitle: '어둠 사냥꾼', role: '원딜 / 암살자', diff: '★★★',
+        icon: '🦇', color: 0x581c87, accent: 0xe879f9,
+        desc: '데마시아의 냉혹한 괴물 사냥꾼입니다. 구르기 기동성과 은화살 고정 피해, 선고 넉백, 결전의 시간 폭딜로 탱커마저 녹여버립니다.',
+        stats: { hp: 565, mp: 340, ad: 65, ap: 0, ar: 25, mr: 30, moveSpeed: 348, attackRange: 550, attackSpeed: 0.90 },
+        skills: {
+          P: { name: '어둠 사냥꾼', desc: '적 챔피언을 추격할 때 이동 속도가 빨라집니다.' },
+          Q: { name: '구르기', cd: 4.5, mp: 25, desc: '재빠르게 구른 뒤 강화된 석궁 화살을 즉시 발사합니다.' },
+          W: { name: '은화살', cd: 6.5, mp: 35, desc: '신성한 은화살을 발사해 적 최대 체력 비례 방어 무시 고정 피해를 입힙니다.' },
+          E: { name: '선고', cd: 9.0, mp: 45, desc: '거대한 볼트를 발사해 적을 뒤로 밀어내며 1.2초간 기절시킵니다.' },
+          R: { name: '결전의 시간', cd: 26.0, mp: 70, desc: '6초간 공격력과 이동 속도가 대폭 상승하고 사방으로 어둠 화살을 방출합니다.' }
+        }
+      },
+      morgana: {
+        id: 'morgana', name: '모르가나', subtitle: '타락한 자', role: '메이지 / 서포터', diff: '★☆☆',
+        icon: '🪶', color: 0x6d28d9, accent: 0xc4b5fd,
+        desc: '어둠의 날개를 지닌 타락한 천사입니다. 어둠의 속박과 고통의 그림자 장판, 칠흑의 방패, 영혼의 족쇄로 적진을 옭아맵니다.',
+        stats: { hp: 590, mp: 480, ad: 54, ap: 35, ar: 26, mr: 32, moveSpeed: 338, attackRange: 530, attackSpeed: 0.68 },
+        skills: {
+          P: { name: '영혼 흡수', desc: '스킬로 피해를 입힐 때마다 체력을 회복합니다.' },
+          Q: { name: '어둠의 속박', cd: 7.5, mp: 45, desc: '암흑 마법 구체를 날려 적중한 적을 1.6초간 강력하게 속박합니다.' },
+          W: { name: '고통의 그림자', cd: 7.0, mp: 50, desc: '지정 위치에 저주받은 암흑 지대를 펼쳐 광역 마법 피해를 입힙니다.' },
+          E: { name: '칠흑의 방패', cd: 9.5, mp: 50, desc: '자신과 주변 아군에게 두꺼운 암흑 보호막을 씌워 피해를 흡수합니다.' },
+          R: { name: '영혼의 족쇄', cd: 27.0, mp: 85, desc: '주변 모든 적에게 어둠의 사슬을 연결해 막대한 마법 피해와 1.4초 기절을 부여합니다.' }
+        }
       }
     };
 
@@ -695,6 +758,7 @@
       roomCode: null,
       isHost: false,
       roomData: null,
+      noTurretsMode: false,
       inGame: false,
       gameEnded: false,
       gameTime: 0,
@@ -711,6 +775,9 @@
       floatingTexts: [],
       pings: [],
       emotes: [],
+      effects3D: [],
+      effects2D: [],
+      screenShake: 0,
       camera: { x: BLUE_FOUNTAIN.x, y: BLUE_FOUNTAIN.y, locked: true, zoom: 1.0, targetZoom: 1.0 },
       mouse: { screenX: 0, screenY: 0, worldX: BLUE_FOUNTAIN.x, worldY: BLUE_FOUNTAIN.y },
       smartCast: true,
@@ -837,6 +904,46 @@
         launcher.rotation.x = Math.PI / 2;
         launcher.position.set(0, 6, 8);
         weaponGroup.add(launcher);
+      } else if (champId === 'leeSin') {
+        const headband = new THREE.Mesh(new THREE.TorusGeometry(9.2, 2.2, 8, 20), new THREE.MeshStandardMaterial({ color: 0xdc2626 }));
+        headband.rotation.x = Math.PI / 2;
+        headband.position.y = 50;
+        group.add(headband);
+        const fistR = new THREE.Mesh(new THREE.SphereGeometry(6.5, 10, 10), accentMat);
+        fistR.position.set(0, 0, 6);
+        const fistL = fistR.clone();
+        fistL.position.set(-30, 0, 6);
+        weaponGroup.add(fistR, fistL);
+      } else if (champId === 'darius') {
+        const hornL = new THREE.Mesh(new THREE.ConeGeometry(3.5, 13, 6), accentMat);
+        hornL.position.set(-13, 43, 0); hornL.rotation.z = 0.55;
+        const hornR = hornL.clone();
+        hornR.position.set(13, 43, 0); hornR.rotation.z = -0.55;
+        group.add(hornL, hornR);
+        const shaft = new THREE.Mesh(new THREE.CylinderGeometry(2.2, 2.2, 50, 8), new THREE.MeshStandardMaterial({ color: 0x1e293b }));
+        shaft.position.y = 14;
+        const axeHead = new THREE.Mesh(new THREE.BoxGeometry(18, 16, 3.5), accentMat);
+        axeHead.position.set(6, 32, 0);
+        weaponGroup.add(shaft, axeHead);
+      } else if (champId === 'vayne') {
+        const cape = new THREE.Mesh(new THREE.ConeGeometry(16, 36, 8), new THREE.MeshStandardMaterial({ color: 0x3b0764 }));
+        cape.position.set(0, 24, -10);
+        cape.rotation.x = -0.25;
+        group.add(cape);
+        const bow = new THREE.Mesh(new THREE.TorusGeometry(11, 2, 8, 14, Math.PI), accentMat);
+        bow.rotation.x = Math.PI / 2;
+        bow.position.set(0, 2, 10);
+        weaponGroup.add(bow);
+      } else if (champId === 'morgana') {
+        const wingMat = new THREE.MeshStandardMaterial({ color: 0x4c1d95, emissive: 0x7c3aed, emissiveIntensity: 0.35 });
+        const wingL = new THREE.Mesh(new THREE.BoxGeometry(24, 18, 2.5), wingMat);
+        wingL.position.set(-16, 32, -10); wingL.rotation.y = 0.45;
+        const wingR = wingL.clone();
+        wingR.position.set(16, 32, -10); wingR.rotation.y = -0.45;
+        const halo = new THREE.Mesh(new THREE.TorusGeometry(8, 1.5, 8, 20), accentMat);
+        halo.rotation.x = Math.PI / 2;
+        halo.position.y = 60;
+        group.add(wingL, wingR, halo);
       } else {
         const skullFlame = new THREE.Mesh(new THREE.OctahedronGeometry(10.5), new THREE.MeshStandardMaterial({ color: 0x10b981, emissive: 0x10b981, emissiveIntensity: 0.75 }));
         skullFlame.position.y = 52;
@@ -898,6 +1005,18 @@
       document.getElementById('addBlueBotBtn').onclick = () => addBotToRoom('blue');
       document.getElementById('addRedBotBtn').onclick = () => addBotToRoom('red');
 
+      document.getElementById('toggleNoTurretsBtn').onclick = () => {
+        if (!state.isHost || !state.roomData) return;
+        const nextVal = !state.roomData.noTurrets;
+        state.roomData.noTurrets = nextVal;
+        renderRoomRoster();
+        if (ioAvailable && ioSocket && state.roomCode) {
+          ioSocket.emit('updateRoomSettings', { code: state.roomCode, userId: state.userId, noTurrets: nextVal });
+        } else {
+          saveRoomState(state.roomData);
+        }
+      };
+
       document.getElementById('toggleReadyBtn').onclick = () => {
         if (!state.roomData || !state.roomData.members[state.userId]) return;
         const m = state.roomData.members[state.userId];
@@ -907,15 +1026,16 @@
 
       document.getElementById('startMatchBtn').onclick = async () => {
         if (!state.isHost || !state.roomData) return;
+        const noTurrets = !!state.roomData.noTurrets;
         if (ioAvailable && ioSocket && state.roomCode) {
           ioSocket.emit('startMatch', { code: state.roomCode, userId: state.userId });
           return;
         }
         state.roomData.started = true;
         const roster = Object.values(state.roomData.members);
-        broadcastNetPacket({ type: 'startMatch', senderId: state.userId, roster });
+        broadcastNetPacket({ type: 'startMatch', senderId: state.userId, roster, noTurrets });
         await saveRoomState(state.roomData);
-        launchMatchFromRoster(roster);
+        launchMatchFromRoster(roster, noTurrets);
       };
 
       document.getElementById('leaveRoomBtn').onclick = () => {
@@ -1015,7 +1135,7 @@
           champ: cKey, rune: 'electrocute', spellD: 'ignite', spellF: 'flash', ready: true, isBot: true
         });
       }
-      launchMatchFromRoster(roster);
+      launchMatchFromRoster(roster, false);
     }
 
     let lobbyMesh = null;
@@ -1222,9 +1342,15 @@
           if (message) setRoomFeedback(message);
         });
 
-        ioSocket.on('startMatch', ({ roster }) => {
+        ioSocket.on('kickedMember', ({ targetId }) => {
+          if (targetId === state.userId) {
+            handleBeingKickedFromRoom();
+          }
+        });
+
+        ioSocket.on('startMatch', ({ roster, noTurrets }) => {
           if (!state.inGame && Array.isArray(roster)) {
-            launchMatchFromRoster(roster);
+            launchMatchFromRoster(roster, !!noTurrets);
           }
         });
 
@@ -1510,17 +1636,25 @@
         }
       } else if (pkt.type === 'roomSync') {
         if (!state.isHost && pkt.room) {
+          if (state.roomCode && pkt.room.members && !pkt.room.members[state.userId]) {
+            handleBeingKickedFromRoom();
+            return;
+          }
           state.roomData = pkt.room;
           if (netJoinRetryTimer) { clearInterval(netJoinRetryTimer); netJoinRetryTimer = null; }
           setRoomFeedback(`✅ 방 [${pkt.room.code}] 연결 완료! (방장이 시작하면 자동 입장)`);
           renderRoomRoster();
           if (pkt.room.started && !state.inGame) {
-            launchMatchFromRoster(Object.values(pkt.room.members));
+            launchMatchFromRoster(Object.values(pkt.room.members), !!pkt.room.noTurrets);
           }
+        }
+      } else if (pkt.type === 'kickedMember') {
+        if (pkt.targetId === state.userId) {
+          handleBeingKickedFromRoom();
         }
       } else if (pkt.type === 'startMatch') {
         if (!state.inGame && Array.isArray(pkt.roster)) {
-          launchMatchFromRoster(pkt.roster);
+          launchMatchFromRoster(pkt.roster, !!pkt.noTurrets);
         }
       } else if (pkt.type === 'playerState' && state.inGame && pkt.player) {
         const target = state.players[pkt.player.id];
@@ -1833,6 +1967,10 @@
         (snap) => {
           if (!snap.exists()) return;
           const room = snap.data();
+          if (state.roomCode && !state.isHost && room.members && !room.members[state.userId] && Object.keys(room.members).length > 0) {
+            handleBeingKickedFromRoom();
+            return;
+          }
           const prevCount = Object.keys(state.roomData?.members || {}).length;
           const nextCount = Object.keys(room.members || {}).length;
           if (nextCount > prevCount && !state.inGame) {
@@ -1848,7 +1986,7 @@
           renderRoomRoster();
           ensureLivePlayerSubscriptions(code, room.members);
           if (room.started && !state.inGame) {
-            launchMatchFromRoster(Object.values(room.members));
+            launchMatchFromRoster(Object.values(room.members), !!room.noTurrets);
           }
         },
         () => {
@@ -1857,6 +1995,34 @@
         }
       );
     }
+
+    function handleBeingKickedFromRoom() {
+      cleanupNetworkRoom();
+      state.roomCode = null;
+      state.roomData = null;
+      state.isHost = false;
+      document.getElementById('activeRoomPanel').classList.add('hidden');
+      document.getElementById('roomLobbyControls').classList.remove('hidden');
+      setRoomFeedback('🚫 방장에 의해 대기실에서 추방되었습니다.', true);
+    }
+
+    window.kickRoomMember = async function(targetId) {
+      if (!state.isHost || !state.roomData || !targetId || targetId === state.userId) return;
+      const target = state.roomData.members[targetId];
+      if (!target) return;
+      const kickedName = target.name || '참가자';
+
+      if (ioAvailable && ioSocket && state.roomCode) {
+        ioSocket.emit('kickMember', { code: state.roomCode, userId: state.userId, targetId });
+        return;
+      }
+
+      delete state.roomData.members[targetId];
+      broadcastNetPacket({ type: 'kickedMember', senderId: state.userId, targetId, name: kickedName });
+      setRoomFeedback(`🚫 ${kickedName}님을 대기실에서 추방했습니다.`);
+      renderRoomRoster();
+      await saveRoomState(state.roomData);
+    };
 
     function renderRoomRoster() {
       if (!state.roomData) return;
@@ -1867,14 +2033,29 @@
       const renderItem = (m) => {
         const cDef = CHAMPIONS[m.champ] || CHAMPIONS.garen;
         const isMe = m.id === state.userId;
-        return `<div class="flex items-center justify-between px-2 py-1 rounded-lg bg-black/50 border ${isMe ? 'border-[#0ac8b9]' : 'border-white/10'} text-[11px]">
-          <div class="truncate font-bold text-white">${cDef.icon} ${m.name}</div>
-          <span class="text-[10px] ${m.ready ? 'text-emerald-400' : 'text-amber-300'} font-bold">${m.isBot ? 'AI' : (m.ready ? '준비' : '대기')}</span>
+        const canKick = state.isHost && !isMe;
+        return `<div class="flex items-center justify-between gap-1 px-2 py-1 rounded-lg bg-black/50 border ${isMe ? 'border-[#0ac8b9]' : 'border-white/10'} text-[11px]">
+          <div class="truncate font-bold text-white" title="${cDef.name} · ${m.name}">${cDef.icon} ${m.name}</div>
+          <div class="flex items-center gap-1 shrink-0">
+            <span class="text-[10px] ${m.ready ? 'text-emerald-400' : 'text-amber-300'} font-bold">${m.isBot ? 'AI' : (m.ready ? '준비' : '대기')}</span>
+            ${canKick ? `<button type="button" onclick="kickRoomMember('${m.id}')" class="px-1.5 py-0.5 rounded bg-rose-600/75 hover:bg-rose-500 text-white text-[10px] font-black" title="${m.name} 추방">✕</button>` : ''}
+          </div>
         </div>`;
       };
 
       blueList.innerHTML = members.filter(m => m.team === 'blue').map(renderItem).join('') || '<div class="text-[10px] text-slate-500 text-center py-4">빈 슬롯</div>';
       redList.innerHTML = members.filter(m => m.team === 'red').map(renderItem).join('') || '<div class="text-[10px] text-slate-500 text-center py-4">빈 슬롯</div>';
+
+      const noTurrets = !!state.roomData.noTurrets;
+      const turretBtn = document.getElementById('toggleNoTurretsBtn');
+      const turretDesc = document.getElementById('noTurretsDescText');
+      if (turretBtn && turretDesc) {
+        turretBtn.disabled = !state.isHost;
+        turretBtn.textContent = noTurrets ? '🔥 포탑: 제거됨' : '🏰 포탑: ON';
+        turretDesc.textContent = noTurrets
+          ? '무포탑 난투 모드 (포탑 없이 바로 억제기·넥서스 격돌!)'
+          : '표준 모드 (모든 방어 포탑 활성화)';
+      }
 
       const startBtn = document.getElementById('startMatchBtn');
       if (state.isHost) {
@@ -2022,7 +2203,9 @@
         { id: 'nex_red', team: 'red', type: 'nexus', lane: 'mid', x: 3080, y: 520, hp: 3200, ad: 0, range: 0 }
       ];
 
-      specs.forEach(s => {
+      const activeSpecs = state.noTurretsMode ? specs.filter(s => s.type !== 'turret') : specs;
+
+      activeSpecs.forEach(s => {
         const st = { ...s, maxHp: s.hp, ar: 40, destroyed: false, attackCd: 0, targetId: null };
         state.structures.push(st);
 
@@ -2088,12 +2271,12 @@
         meshMap.set(c.id, mesh);
       });
     }
-
-    function launchMatchFromRoster(roster) {
+    function launchMatchFromRoster(roster, noTurrets = false) {
       if (state.inGame) return;
       state.inGame = true;
       state.gameEnded = false;
       state.gameTime = 0;
+      state.noTurretsMode = !!noTurrets;
 
       document.getElementById('lobbyScreen').classList.add('hidden');
       document.getElementById('gameContainer').classList.remove('hidden');
@@ -2153,7 +2336,10 @@
       }
 
       buildHudSlots();
-      showAnnouncer('소환사의 협곡에 오신 것을 환영합니다!', 'Q·W·E·R 모든 스킬이 즉시 개방되었습니다 · 사망 부활 5초');
+      showAnnouncer(
+        state.noTurretsMode ? '🔥 무포탑 난투 전장에 오신 것을 환영합니다!' : '소환사의 협곡에 오신 것을 환영합니다!',
+        state.noTurretsMode ? '포탑이 제거된 커스텀 난투전입니다! 바로 적진을 돌파하세요!' : 'Q·W·E·R 모든 스킬이 즉시 개방되었습니다 · 사망 부활 5초'
+      );
       appendChat('시스템', '전투가 시작되었습니다! 우클릭으로 이동/공격, Q/W/E/R로 스킬을 사용하세요.', '#0ac8b9');
     }
 
@@ -2253,6 +2439,10 @@
       const dist = Math.hypot(dx, dy) || 1;
       const nx = dx / dist, ny = dy / dist;
       c.facing = Math.atan2(nx, ny);
+
+      if (key === 'R') {
+        spawnUltimateEffect(c, targetX, targetY);
+      }
 
       if (c.champId === 'garen') {
         if (key === 'Q') {
@@ -2381,28 +2571,108 @@
           spawnProjectile({ ownerId: c.id, team: c.team, x: c.x, y: c.y, vx: nx * 1650, vy: ny * 1650, range: 2800, radius: 78, dmg: (260 + c.ad * 1.35) * rankMult, dmgType: 'physical', color: 0xf43f5e });
           spawnFloatingText(c.x, c.y - 55, '🚀 초강력 초토화 로켓!', '#38bdf8', 17);
         }
-      } else {
+      } else if (c.champId === 'leeSin') {
         if (key === 'Q') {
-          spawnProjectile({ ownerId: c.id, team: c.team, x: c.x, y: c.y, vx: nx * 1180, vy: ny * 1180, range: 860, radius: 36, dmg: (100 + c.ap * 0.8) * rankMult, dmgType: 'magic', color: 0x10b981, stun: 1.3 });
+          const dash = Math.min(430, dist);
+          c.x = clampMap(c.x + nx * dash); c.y = clampMap(c.y + ny * dash);
+          c.targetX = c.x; c.targetY = c.y;
+          dealAreaDamage(c, c.x, c.y, 185, (115 + c.ad * 0.95) * rankMult, 'physical');
+          spawnFloatingText(c.x, c.y - 45, '🐉 음파 돌진!', '#f59e0b', 14);
+        } else if (key === 'W') {
+          const dash = Math.min(340, dist);
+          c.x = clampMap(c.x + nx * dash); c.y = clampMap(c.y + ny * dash);
+          c.targetX = c.x; c.targetY = c.y;
+          c.shield += (140 + c.ad * 0.7) * rankMult;
+          spawnFloatingText(c.x, c.y - 45, '🛡️ 방호!', '#fde047', 14);
+        } else if (key === 'E') {
+          dealAreaDamage(c, c.x, c.y, 240, (105 + c.ad * 0.85) * rankMult, 'magic', 0, 1.6);
+          spawnFloatingText(c.x, c.y - 45, '🌪️ 폭풍!', '#fb923c', 14);
+        } else if (key === 'R') {
+          const kickX = clampMap(c.x + nx * 150), kickY = clampMap(c.y + ny * 150);
+          dealAreaDamage(c, kickX, kickY, 270, (255 + c.ad * 1.45) * rankMult, 'physical', 1.2);
+          spawnFloatingText(c.x, c.y - 55, '🐉 용의 분노!', '#f59e0b', 18);
+        }
+      } else if (c.champId === 'darius') {
+        if (key === 'Q') {
+          c.hp = Math.min(c.maxHp, c.hp + 75 * rankMult);
+          dealAreaDamage(c, c.x, c.y, 255, (125 + c.ad * 1.05) * rankMult, 'physical');
+          spawnFloatingText(c.x, c.y - 45, '🪓 학살!', '#f87171', 14);
+        } else if (key === 'W') {
+          dealAreaDamage(c, c.x + nx * 90, c.y + ny * 90, 175, (115 + c.ad * 1.0) * rankMult, 'physical', 0, 1.5);
+          spawnFloatingText(c.x, c.y - 45, '🩸 마비의 일격!', '#ef4444', 14);
+        } else if (key === 'E') {
+          const pullX = clampMap(c.x + nx * 160), pullY = clampMap(c.y + ny * 160);
+          dealAreaDamage(c, pullX, pullY, 230, (80 + c.ad * 0.6) * rankMult, 'physical', 1.0);
+          spawnFloatingText(c.x, c.y - 45, '⛓️ 포획!', '#fca5a5', 14);
+        } else if (key === 'R') {
+          const slamX = clampMap(c.x + nx * Math.min(260, dist)), slamY = clampMap(c.y + ny * Math.min(260, dist));
+          c.x = slamX; c.y = slamY; c.targetX = c.x; c.targetY = c.y;
+          dealAreaDamage(c, slamX, slamY, 220, (245 + c.ad * 1.3) * rankMult, 'true');
+          spawnFloatingText(c.x, c.y - 55, '🪓 녹서스의 단두대!', '#ef4444', 18);
+        }
+      } else if (c.champId === 'vayne') {
+        if (key === 'Q') {
+          const tumble = Math.min(260, dist);
+          c.x = clampMap(c.x + nx * tumble); c.y = clampMap(c.y + ny * tumble);
+          c.targetX = c.x; c.targetY = c.y;
+          spawnProjectile({ ownerId: c.id, team: c.team, x: c.x, y: c.y, vx: nx * 1450, vy: ny * 1450, range: 650, radius: 28, dmg: (95 + c.ad * 0.95) * rankMult, dmgType: 'physical', color: 0xe879f9 });
+          spawnFloatingText(c.x, c.y - 45, '🦇 구르기!', '#e879f9', 14);
+        } else if (key === 'W') {
+          spawnProjectile({ ownerId: c.id, team: c.team, x: c.x, y: c.y, vx: nx * 1500, vy: ny * 1500, range: 720, radius: 30, dmg: (110 + c.ad * 0.85) * rankMult, dmgType: 'true', color: 0xf0abfc });
+        } else if (key === 'E') {
+          spawnProjectile({ ownerId: c.id, team: c.team, x: c.x, y: c.y, vx: nx * 1400, vy: ny * 1400, range: 760, radius: 34, dmg: (100 + c.ad * 0.85) * rankMult, dmgType: 'physical', color: 0xc084fc, stun: 1.2 });
+        } else if (key === 'R') {
+          c.ghostTimer = Math.max(c.ghostTimer, 6.0);
+          c.asBuffTimer = Math.max(c.asBuffTimer, 6.0);
+          recalcChampionStats(c, false);
+          for (let i = -2; i <= 2; i++) {
+            const ang = i * 0.24;
+            const cA = Math.cos(ang), sA = Math.sin(ang);
+            spawnProjectile({ ownerId: c.id, team: c.team, x: c.x, y: c.y, vx: (nx * cA - ny * sA) * 1550, vy: (nx * sA + ny * cA) * 1550, range: 850, radius: 34, dmg: (135 + c.ad * 1.0) * rankMult, dmgType: 'physical', color: 0xd946ef });
+          }
+          spawnFloatingText(c.x, c.y - 55, '🦇 결전의 시간!', '#e879f9', 18);
+        }
+      } else if (c.champId === 'morgana') {
+        if (key === 'Q') {
+          spawnProjectile({ ownerId: c.id, team: c.team, x: c.x, y: c.y, vx: nx * 1140, vy: ny * 1140, range: 940, radius: 38, dmg: (105 + c.ap * 0.85) * rankMult, dmgType: 'magic', color: 0xa855f7, stun: 1.6 });
+        } else if (key === 'W') {
+          const cx = clampMap(c.x + nx * Math.min(720, dist)), cy = clampMap(c.y + ny * Math.min(720, dist));
+          dealAreaDamage(c, cx, cy, 245, (130 + c.ap * 0.9) * rankMult, 'magic', 0, 1.5);
+          spawnFloatingText(cx, cy - 30, '🪶 고통의 그림자!', '#c084fc', 14);
+        } else if (key === 'E') {
+          Object.values(state.players).forEach(ally => {
+            if (ally.team === c.team && !ally.isDead && Math.hypot(ally.x - c.x, ally.y - c.y) <= 460) {
+              ally.shield += (165 + c.ap * 0.8) * rankMult;
+            }
+          });
+          spawnFloatingText(c.x, c.y - 45, '🛡️ 칠흑의 방패!', '#c4b5fd', 14);
+        } else if (key === 'R') {
+          dealAreaDamage(c, c.x, c.y, 330, (240 + c.ap * 1.25) * rankMult, 'magic', 1.4, 1.8);
+          spawnFloatingText(c.x, c.y - 55, '🪶 영혼의 족쇄!', '#a855f7', 18);
+        }
+      } else {
+        // 쓰레쉬 (지옥의 간수) 고유 스킬
+        if (key === 'Q') {
+          spawnProjectile({ ownerId: c.id, team: c.team, x: c.x, y: c.y, vx: nx * 1200, vy: ny * 1200, range: 900, radius: 36, dmg: (95 + c.ap * 0.75) * rankMult, dmgType: 'magic', color: 0x10b981, stun: 1.3 });
         } else if (key === 'W') {
           Object.values(state.players).forEach(ally => {
             if (ally.team === c.team && !ally.isDead && Math.hypot(ally.x - c.x, ally.y - c.y) <= 460) {
               ally.shield += (145 + c.ap * 0.7) * rankMult;
-              ally.hp = Math.min(ally.maxHp, ally.hp + 65 * rankMult);
             }
           });
           spawnFloatingText(c.x, c.y - 45, '🏮 어둠의 통로!', '#6ee7b7', 14);
         } else if (key === 'E') {
-          dealAreaDamage(c, c.x + nx * 110, c.y + ny * 110, 230, (105 + c.ap * 0.75) * rankMult, 'magic', 0, 1.5);
+          dealAreaDamage(c, c.x, c.y, 240, (105 + c.ap * 0.75) * rankMult, 'magic', 0, 1.5);
+          spawnFloatingText(c.x, c.y - 45, '⛓️ 사슬 채찍!', '#34d399', 14);
         } else if (key === 'R') {
-          dealAreaDamage(c, c.x, c.y, 310, (220 + c.ap * 1.2) * rankMult, 'magic', 0.8, 2.2);
-          spawnFloatingText(c.x, c.y - 55, '⛓️ 영혼 감옥!', '#10b981', 17);
+          dealAreaDamage(c, c.x, c.y, 330, (235 + c.ap * 1.2) * rankMult, 'magic', 0, 2.0);
+          spawnFloatingText(c.x, c.y - 55, '⛓️ 영혼 감옥!', '#10b981', 18);
         }
       }
     }
 
     function castSummonerSpell(c, slotKey, targetX, targetY, fromNet = false) {
-      if (!c || c.isDead) return;
+      if (!c || c.isDead || c.zhonyaTimer > 0) return;
       const spellId = slotKey === 'D' ? c.spellD : c.spellF;
       const sp = SPELLS[spellId];
       if (!sp) return;
@@ -2416,38 +2686,133 @@
         }
       }
 
+      const dx = targetX - c.x, dy = targetY - c.y;
+      const dist = Math.hypot(dx, dy) || 1;
+      const nx = dx / dist, ny = dy / dist;
+
       if (spellId === 'flash') {
-        const dx = targetX - c.x, dy = targetY - c.y, d = Math.hypot(dx, dy) || 1;
-        const step = Math.min(350, d);
-        c.x = clampMap(c.x + (dx / d) * step);
-        c.y = clampMap(c.y + (dy / d) * step);
-        c.targetX = c.x; c.targetY = c.y;
+        const step = Math.min(360, dist);
+        c.x = clampMap(c.x + nx * step);
+        c.y = clampMap(c.y + ny * step);
+        c.targetX = c.x;
+        c.targetY = c.y;
         spawnFloatingText(c.x, c.y - 45, '✨ 점멸!', '#fde047', 14);
       } else if (spellId === 'heal') {
-        const amt = 130 + c.level * 22;
-        c.hp = Math.min(c.maxHp, c.hp + amt);
-        c.ghostTimer = Math.max(c.ghostTimer, 1.5);
-        spawnFloatingText(c.x, c.y - 45, `💚 +${amt} 회복!`, '#4ade80', 14);
+        Object.values(state.players).forEach(ally => {
+          if (ally.team === c.team && !ally.isDead && Math.hypot(ally.x - c.x, ally.y - c.y) <= 450) {
+            ally.hp = Math.min(ally.maxHp, ally.hp + 140 + ally.level * 18);
+            ally.ghostTimer = Math.max(ally.ghostTimer, 1.5);
+          }
+        });
+        spawnFloatingText(c.x, c.y - 45, '💚 회복!', '#4ade80', 14);
       } else if (spellId === 'ignite') {
-        const enemy = findNearestEnemy(targetX, targetY, c.team, 480);
-        if (enemy) {
-          applyDamage(c, enemy, 110 + c.level * 26, 'true', false);
-          spawnFloatingText(enemy.x, enemy.y - 45, '🔥 점화!', '#fb923c', 14);
+        const target = findNearestEnemy(targetX, targetY, c.team, 350) || findNearestEnemy(c.x, c.y, c.team, 550);
+        if (target) {
+          applyDamage(c, target, 110 + c.level * 24, 'true', false);
+          spawnFloatingText(target.x, target.y - 45, '🔥 점화!', '#fb923c', 14);
         }
       } else if (spellId === 'ghost') {
-        c.ghostTimer = 6.0;
-        recalcChampionStats(c, false);
+        c.ghostTimer = Math.max(c.ghostTimer, 6.0);
         spawnFloatingText(c.x, c.y - 45, '👻 유체화!', '#38bdf8', 14);
       } else if (spellId === 'barrier') {
-        const sh = 180 + c.level * 28;
-        c.shield += sh;
-        spawnFloatingText(c.x, c.y - 45, `🔰 보호막 +${sh}`, '#fde047', 14);
+        c.shield += 160 + c.level * 22;
+        spawnFloatingText(c.x, c.y - 45, '🔰 보호막!', '#facc15', 14);
       }
     }
 
-    // =========================================================================
-    // 8. 투사체 스폰 & 광역/단일 데미지 & 킬/골드/경험치 처리
-    // =========================================================================
+    function spawnUltimateEffect(c, targetX, targetY) {
+      if (!scene || !c) return;
+      const def = CHAMPIONS[c.champId] || CHAMPIONS.garen;
+      const mainHex = def.color;
+      const accentHex = def.accent;
+
+      const fxGroup = new THREE.Group();
+      fxGroup.position.set(c.x, 4, c.y);
+
+      const outerRing = new THREE.Mesh(
+        new THREE.RingGeometry(24, 52, 36),
+        new THREE.MeshBasicMaterial({ color: accentHex, side: THREE.DoubleSide, transparent: true, opacity: 0.95 })
+      );
+      outerRing.rotation.x = -Math.PI / 2;
+      fxGroup.add(outerRing);
+
+      const innerRing = new THREE.Mesh(
+        new THREE.RingGeometry(10, 32, 32),
+        new THREE.MeshBasicMaterial({ color: mainHex, side: THREE.DoubleSide, transparent: true, opacity: 0.9 })
+      );
+      innerRing.rotation.x = -Math.PI / 2;
+      innerRing.position.y = 3;
+      fxGroup.add(innerRing);
+
+      const pillar = new THREE.Mesh(
+        new THREE.CylinderGeometry(26, 46, 280, 20, 1, true),
+        new THREE.MeshBasicMaterial({ color: accentHex, side: THREE.DoubleSide, transparent: true, opacity: 0.65 })
+      );
+      pillar.position.y = 140;
+      fxGroup.add(pillar);
+
+      const crown = new THREE.Mesh(
+        new THREE.OctahedronGeometry(34),
+        new THREE.MeshBasicMaterial({ color: mainHex, wireframe: true, transparent: true, opacity: 0.9 })
+      );
+      crown.position.y = 115;
+      fxGroup.add(crown);
+
+      scene.add(fxGroup);
+      state.effects3D.push({ group: fxGroup, outerRing, innerRing, pillar, crown, life: 0.95, maxLife: 0.95 });
+
+      const colorCss = '#' + new THREE.Color(accentHex).getHexString();
+      state.effects2D.push({
+        x: c.x, y: c.y,
+        color: colorCss,
+        label: `⚡ [${def.name} 궁극기] ${def.skills.R.name}!`,
+        life: 1.0, maxLife: 1.0
+      });
+
+      const me = state.players[state.userId];
+      if (me && Math.hypot(me.x - c.x, me.y - c.y) <= 1300) {
+        state.screenShake = Math.max(state.screenShake, 0.35);
+      }
+    }
+
+    function updateEffects3D(dt) {
+      for (let i = state.effects3D.length - 1; i >= 0; i--) {
+        const fx = state.effects3D[i];
+        fx.life -= dt;
+        const p = 1 - Math.max(0, fx.life / fx.maxLife);
+        const fade = Math.max(0, 1 - p);
+
+        const s1 = 1 + p * 7.5;
+        fx.outerRing.scale.set(s1, s1, 1);
+        fx.outerRing.material.opacity = fade * 0.95;
+
+        const s2 = 1 + p * 5.0;
+        fx.innerRing.scale.set(s2, s2, 1);
+        fx.innerRing.material.opacity = fade * 0.9;
+
+        fx.pillar.scale.set(1 + p * 1.4, 1 + p * 0.5, 1 + p * 1.4);
+        fx.pillar.rotation.y += dt * 6;
+        fx.pillar.material.opacity = fade * 0.65;
+
+        fx.crown.rotation.y -= dt * 8;
+        fx.crown.position.y = 115 + p * 90;
+        fx.crown.material.opacity = fade * 0.9;
+
+        if (fx.life <= 0) {
+          scene.remove(fx.group);
+          state.effects3D.splice(i, 1);
+        }
+      }
+
+      for (let i = state.effects2D.length - 1; i >= 0; i--) {
+        state.effects2D[i].life -= dt;
+        if (state.effects2D[i].life <= 0) state.effects2D.splice(i, 1);
+      }
+      if (state.screenShake > 0) {
+        state.screenShake = Math.max(0, state.screenShake - dt);
+      }
+    }
+
     function spawnProjectile(opts) {
       const id = 'proj_' + Math.random().toString(36).substring(2, 9);
       const p = {
@@ -2555,7 +2920,7 @@
           }
         }
         showAnnouncer(
-          `${killer ? killer.name : '포탑'}님이 ${victim.name}님을 처치했습니다!`,
+          `${killer ? `[${CHAMPIONS[killer.champId]?.name || '포탑'}] ${killer.name}` : '포탑'}님이 [${CHAMPIONS[victim.champId]?.name || ''}] ${victim.name}님을 처치했습니다!`,
           '5초 후 본진에서 즉시 부활합니다'
         );
         return;
@@ -2675,6 +3040,7 @@
       updateMonsters(dt);
       updateStructures(dt);
       updateProjectiles(dt);
+      updateEffects3D(dt);
 
       for (let i = state.wards.length - 1; i >= 0; i--) {
         state.wards[i].life -= dt;
@@ -3348,47 +3714,62 @@
       state.structures.forEach(st => {
         if (st.destroyed) return;
         const pos = worldToScreen(st.x, st.y);
-        if (pos.x < -100 || pos.x > canvas.width + 100 || pos.y < -100 || pos.y > canvas.height + 100) return;
-        const w = st.type === 'nexus' ? 84 : 58;
+        const w = st.type === 'nexus' ? 84 : 62;
         ctx.fillStyle = 'rgba(2, 6, 23, 0.85)';
         ctx.fillRect(pos.x - w / 2, pos.y - 68, w, 7);
         ctx.fillStyle = st.team === 'blue' ? '#38bdf8' : '#f43f5e';
         ctx.fillRect(pos.x - w / 2 + 1, pos.y - 67, (w - 2) * (st.hp / st.maxHp), 5);
       });
 
-      // 정글 몬스터 체력바
-      state.monsters.forEach(mob => {
-        if (mob.isDead) return;
-        const pos = worldToScreen(mob.x, mob.y);
-        if (pos.x < -80 || pos.x > canvas.width + 80 || pos.y < -80 || pos.y > canvas.height + 80) return;
-        const w = 64;
-        ctx.fillStyle = 'rgba(2, 6, 23, 0.85)';
-        ctx.fillRect(pos.x - w / 2, pos.y - 44, w, 6);
-        ctx.fillStyle = '#f97316';
-        ctx.fillRect(pos.x - w / 2 + 1, pos.y - 43, (w - 2) * (mob.hp / mob.maxHp), 4);
-      });
-
       // 미니언 체력바
       state.minions.forEach(m => {
         if (m.isDead) return;
         const pos = worldToScreen(m.x, m.y);
-        if (pos.x < -40 || pos.x > canvas.width + 40 || pos.y < -40 || pos.y > canvas.height + 40) return;
+        const w = 32;
         ctx.fillStyle = 'rgba(2, 6, 23, 0.8)';
-        ctx.fillRect(pos.x - 18, pos.y - 24, 36, 4);
+        ctx.fillRect(pos.x - w / 2, pos.y - 24, w, 5);
         ctx.fillStyle = m.team === 'blue' ? '#38bdf8' : '#f43f5e';
-        ctx.fillRect(pos.x - 18, pos.y - 24, 36 * (m.hp / m.maxHp), 4);
+        ctx.fillRect(pos.x - w / 2 + 1, pos.y - 23, (w - 2) * (m.hp / m.maxHp), 3);
       });
 
-      // 챔피언 체력바 & 이름
+      // 정글 몬스터 체력바
+      state.monsters.forEach(mob => {
+        if (mob.isDead) return;
+        const pos = worldToScreen(mob.x, mob.y);
+        const w = 74;
+        ctx.font = 'bold 11px "Noto Sans KR", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#fde047';
+        ctx.fillText(mob.name, pos.x, pos.y - 54);
+        ctx.fillStyle = 'rgba(2, 6, 23, 0.88)';
+        ctx.fillRect(pos.x - w / 2, pos.y - 48, w, 7);
+        ctx.fillStyle = '#f97316';
+        ctx.fillRect(pos.x - w / 2 + 1, pos.y - 47, (w - 2) * (mob.hp / mob.maxHp), 5);
+      });
+
+      // 챔피언 체력바 & 챔피언 이름/아이콘 배지
       Object.values(state.players).forEach(c => {
         if (c.isDead) return;
         if (me && c.team !== me.team && c.inBush && Math.hypot(c.x - me.x, c.y - me.y) > 260) return;
         const pos = worldToScreen(c.x, c.y);
+        const def = CHAMPIONS[c.champId] || CHAMPIONS.garen;
+
+        // 챔피언 종류 배지 (전장에서 무슨 챔피언인지 즉시 식별)
+        const champTag = `${def.icon} ${def.name}`;
+        ctx.font = '900 11px "Noto Sans KR", sans-serif';
+        const tagW = ctx.measureText(champTag).width + 12;
+        ctx.fillStyle = c.team === 'blue' ? 'rgba(14, 116, 144, 0.92)' : 'rgba(159, 18, 57, 0.92)';
+        ctx.fillRect(pos.x - tagW / 2, pos.y - 74, tagW, 16);
+        ctx.strokeStyle = c.id === state.userId ? '#facc15' : 'rgba(255,255,255,0.45)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(pos.x - tagW / 2, pos.y - 74, tagW, 16);
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText(champTag, pos.x, pos.y - 62);
 
         ctx.font = 'bold 11px "Noto Sans KR", sans-serif';
-        ctx.textAlign = 'center';
         ctx.fillStyle = '#f8fafc';
-        ctx.fillText(`Lv.${c.level} ${c.name}`, pos.x, pos.y - 48);
+        ctx.fillText(`Lv.${c.level} ${c.name}`, pos.x, pos.y - 47);
 
         const w = 72;
         ctx.fillStyle = 'rgba(2, 6, 23, 0.9)';
@@ -3400,6 +3781,25 @@
           ctx.fillStyle = '#e2e8f0';
           ctx.fillRect(pos.x - w / 2 + 1, pos.y - 42, Math.min(w - 2, (w - 2) * (c.shield / c.maxHp)), 6);
         }
+      });
+
+      // 궁극기 2D 충격파 파동 & 스킬명 배너
+      state.effects2D.forEach(ef => {
+        const pos = worldToScreen(ef.x, ef.y);
+        const p = 1 - Math.max(0, ef.life / ef.maxLife);
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, 1 - p);
+        ctx.strokeStyle = ef.color;
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.arc(pos.x, pos.y, 28 + p * 165, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.font = '900 15px "Noto Sans KR", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = ef.color;
+        ctx.fillText(ef.label, pos.x, pos.y - 88 - p * 22);
+        ctx.restore();
       });
 
       // 플로팅 데미지 & 골드 텍스트
@@ -3574,7 +3974,7 @@
         const def = CHAMPIONS[c.champId];
         const itemIcons = sanitizeUniqueItems(c.items).map(id => ITEMS.find(x => x.id === id)?.icon || '').join(' ');
         return `<div class="flex items-center justify-between px-3 py-2 rounded-xl bg-[#040c18] border border-white/10 text-xs">
-          <div class="font-bold text-white">${def.icon} ${c.name} <span class="text-[#c8aa6e]">(Lv.${c.level})</span></div>
+          <div class="font-bold text-white">${def.icon} <span class="text-[#0ac8b9]">[${def.name}]</span> ${c.name} <span class="text-[#c8aa6e]">(Lv.${c.level})</span></div>
           <div class="text-slate-300">${itemIcons || '아이템 없음'}</div>
           <div class="font-black text-amber-300">${c.kills}/${c.deaths}/${c.assists} · CS ${c.cs}</div>
         </div>`;
@@ -3808,8 +4208,10 @@
         updateSimulation(dt);
         if (camera3D && renderer3D && scene) {
           const z = state.camera.zoom;
-          camera3D.position.set(state.camera.x - 420 * z, 680 * z, state.camera.y + 540 * z);
-          camera3D.lookAt(state.camera.x, 0, state.camera.y);
+          const shakeX = state.screenShake > 0 ? (Math.random() - 0.5) * 26 : 0;
+          const shakeZ = state.screenShake > 0 ? (Math.random() - 0.5) * 26 : 0;
+          camera3D.position.set(state.camera.x - 420 * z + shakeX, 680 * z, state.camera.y + 540 * z + shakeZ);
+          camera3D.lookAt(state.camera.x + shakeX, 0, state.camera.y + shakeZ);
           renderer3D.render(scene, camera3D);
         }
         updateHud();
